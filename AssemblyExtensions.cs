@@ -9,5 +9,13 @@ namespace Snap.Reflection
         {
             return assembly.GetCustomAttribute<T>() is not null;
         }
+
+        public static void ForEachType(this Assembly assembly, Action<Type> action)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                action.Invoke(type);
+            }
+        }
     }
 }
