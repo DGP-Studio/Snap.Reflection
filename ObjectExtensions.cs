@@ -32,7 +32,17 @@ namespace Snap.Reflection
             propInfo.OnHaveAttribute<TAttribute>(attribute =>
             action(obj.GetPropertyByInfo(propInfo)!, attribute)));
         }
-        
+
+        #endregion
+
+        #region ForEachAttribute
+        public static void ForEachAttribute<TAttribute>(this object obj, Action<TAttribute> action) where TAttribute : Attribute
+        {
+            foreach (TAttribute attribute in obj.GetType().GetCustomAttributes<TAttribute>())
+            {
+                action(attribute);
+            }
+        }
         #endregion
         public static object? GetPropertyByInfo(this object obj, PropertyInfo propInfo)
         {
