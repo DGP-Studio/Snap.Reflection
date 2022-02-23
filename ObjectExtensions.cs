@@ -76,5 +76,11 @@ namespace Snap.Reflection
                 childProp.SetValue(obj, value, null);
             }
         }
+
+        public static void SetPrivateFieldValueByName(this object obj, string fieldName, object? value)
+        {
+            FieldInfo? fieldInfo = obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldInfo?.SetValue(obj, value);
+        }
     }
 }
