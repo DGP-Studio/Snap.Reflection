@@ -19,5 +19,10 @@ namespace Snap.Reflection
                 return false;
             }
         }
+
+        public static bool Implement<TInterface>(this Type type)
+        {
+            return type.IsAssignableTo(typeof(TInterface));
+        }
     }
 }

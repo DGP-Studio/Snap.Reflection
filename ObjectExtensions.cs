@@ -87,5 +87,10 @@ namespace Snap.Reflection
             FieldInfo? fieldInfo = obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
             fieldInfo?.SetValue(obj, value);
         }
+
+        public static bool Implement<TInterface>(this object obj)
+        {
+            return obj.GetType().Implement<TInterface>();
+        }
     }
 }
