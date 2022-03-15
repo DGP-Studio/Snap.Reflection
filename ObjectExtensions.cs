@@ -30,13 +30,13 @@ namespace Snap.Reflection
         {
             obj.ForEachPropertyInfo(propInfo =>
             propInfo.OnHaveAttribute<TAttribute>(attribute =>
-            action(obj.GetPropertyByInfo(propInfo)!, attribute)));
+            action(obj.GetPropertyValueByInfo(propInfo)!, attribute)));
         }
         public static void ForEachPropertyWithAttribute<TProperty, TAttribute>(this object obj, Action<TProperty, TAttribute> action) where TProperty : class where TAttribute : Attribute
         {
             obj.ForEachPropertyInfo(propInfo =>
             propInfo.OnHaveAttribute<TAttribute>(attribute =>
-            action(obj.GetPropertyByInfo<TProperty>(propInfo)!, attribute)));
+            action(obj.GetPropertyValueByInfo<TProperty>(propInfo)!, attribute)));
         }
         #endregion
 
@@ -49,13 +49,9 @@ namespace Snap.Reflection
             }
         }
         #endregion
-        public static object? GetPropertyByInfo(this object obj, PropertyInfo propInfo)
+        public static T? GetPropertyValueByInfo<T>(this object obj, PropertyInfo propInfo) where T : class
         {
-            return propInfo.GetValue(obj);
-        }
-        public static T? GetPropertyByInfo<T>(this object obj, PropertyInfo propInfo) where T : class
-        {
-            return propInfo.GetValue(obj) as T;
+            return propInfo.GetValue(obj, null) as T;
         }
 
         public static object? GetPropertyValueByInfo(this object obj, PropertyInfo propInfo)
