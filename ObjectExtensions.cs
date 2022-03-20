@@ -6,7 +6,6 @@ namespace Snap.Reflection
     public static class ObjectExtensions
     {
         #region ForEachProperty
-
         public static void ForEachPropertyInfo(this object obj, Action<PropertyInfo> action)
         {
             foreach (PropertyInfo propInfo in obj.GetType().GetProperties())
