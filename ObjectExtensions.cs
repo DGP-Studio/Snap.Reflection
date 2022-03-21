@@ -48,6 +48,8 @@ namespace Snap.Reflection
             }
         }
         #endregion
+
+        #region GetProperty
         public static T? GetPropertyValueByInfo<T>(this object obj, PropertyInfo propInfo) where T : class
         {
             return propInfo.GetValue(obj, null) as T;
@@ -67,6 +69,7 @@ namespace Snap.Reflection
         {
             return (T)(obj.GetType().GetProperty(propertyName)!.GetValue(obj)!);
         }
+        #endregion
 
         public static void SetPropertyValueByName(this object obj, string propertyName, object? value)
         {
@@ -86,6 +89,23 @@ namespace Snap.Reflection
         public static bool Implement<TInterface>(this object obj)
         {
             return obj.GetType().Implement<TInterface>();
+        }
+
+        public static void InvokeMethodByName(this object obj, string name)
+        {
+            MethodInfo? addMethod = obj.GetType().GetMethod(name);
+            if (obj.GetType().GetMethod(name) is MethodInfo method)
+            {
+                method.Invoke(obj, null);
+            }
+        }
+        public static void InvokeMethodByName(this object obj, string name, params object?[] param)
+        {
+            MethodInfo? addMethod = obj.GetType().GetMethod(name);
+            if (obj.GetType().GetMethod(name) is MethodInfo method)
+            {
+                method.Invoke(obj, param);
+            }
         }
     }
 }
